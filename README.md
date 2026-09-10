@@ -1,4 +1,4 @@
-# Tennis Collection Robot 2.0
+# 网球收集机器人 2.0
 
 现代化的网球收集机器人视觉与路径规划项目。原始工程基于 2017 年的 C++、OpenCV 3.x、OpenCV SVM 和 Linux 预编译库；本版本以纯 Python 重新实现主流程，适合作为计算机视觉、机器人算法和工程化岗位项目展示。
 
@@ -10,7 +10,11 @@
 - **坐标标定**：支持 YAML 单应性矩阵，将像素坐标映射到场地/机器人坐标；默认保留像素坐标模式便于开箱演示。
 - **工程化交付**：PySide6 控制台、无界面 CLI、配置文件、类型标注、单元测试、可选 AI 依赖和 GitHub Actions。
 
-## 快速运行
+## 部署方式
+
+### 方式一：从源码安装（推荐开发环境）
+
+要求 Python 3.10 及以上版本。Windows 用户可以在 PowerShell 中执行：
 
 ```powershell
 python -m venv .venv
@@ -25,7 +29,44 @@ tennis-robot --config config/default.yaml --headless
 tennis-robot-ui
 ```
 
-相机运行可在 `config/default.yaml` 中将 `source` 改为 `0`、`1` 等设备编号。视频文件会逐帧处理；图片模式处理一帧后结束。
+安装完成后，可以运行单元测试验证环境：
+
+```powershell
+python -m pytest
+```
+
+使用样例图片进行无界面检测：
+
+```powershell
+tennis-robot --config config/default.yaml --headless
+```
+
+启动 PySide6 可视化控制台：
+
+```powershell
+tennis-robot-ui
+```
+
+### 方式二：安装 wheel 发布包
+
+如果只需要运行程序，可以直接安装 `dist` 或 GitHub Releases 中提供的 wheel 文件：
+
+```powershell
+python -m pip install tennis_collection_robot-2.0.0-py3-none-any.whl
+tennis-robot --config config/default.yaml --headless
+```
+
+### 相机与视频部署
+
+在 `config/default.yaml` 中将 `source` 设置为摄像头编号（例如 `0` 或 `1`），即可读取 USB 摄像头；设置为视频文件路径即可逐帧处理视频。图片输入只处理一帧后退出。
+
+真实机器人部署前，应将视觉输出接入底盘或 ROS 2 节点，并配置急停、限速、目标丢失保护、通信超时和人工接管机制。建议先在仿真环境或架空测试中验证。
+
+### GitHub Actions 自动检查
+
+提交代码后，仓库中的 GitHub Actions 会自动安装开发依赖并执行测试。发布到生产设备前，应同时记录检测准确率、漏检率、规划耗时和端到端延迟。
+
+## YOLO 模式
 
 ## YOLO 模式
 
@@ -73,4 +114,3 @@ data/             # 小型演示数据
 ## 安全与许可
 
 连接真实底盘前必须加入急停、限速、目标丢失和通信超时保护，并在仿真或架空测试中验证。模型权重、数据集和原始论文/代码的许可应在公开发布前单独核查。
-
