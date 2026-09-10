@@ -68,8 +68,6 @@ tennis-robot --config config/default.yaml --headless
 
 ## YOLO 模式
 
-## YOLO 模式
-
 ```powershell
 python -m pip install -e ".[ai]"
 ```
