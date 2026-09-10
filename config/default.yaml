@@ -1,0 +1,24 @@
+source: data/ball_7.jpg
+camera_index: 0
+
+detector:
+  backend: hsv
+  confidence: 0.45
+  hsv_lower: [20, 65, 55]
+  hsv_upper: [90, 255, 255]
+  min_area: 80
+  max_area: 80000
+  min_circularity: 0.35
+  morph_kernel: 7
+
+tracker:
+  max_distance: 80
+  max_missed: 8
+  smoothing: 0.65
+
+planner:
+  start: [0, 0]
+  exact_limit: 12
+  merge_distance: 45
+  return_to_start: false
+
